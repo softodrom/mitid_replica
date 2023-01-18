@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <title>CristianID</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about-us">About us</a>
+        <a href="/contact-us">Contact us</a>
+    </nav>
+
+    <main>
+        <div id="test">
+        <iframe 
+        src="https://mitid.eu.pythonanywhere.com/" 
+        frameboard="0"
+        style="height: 31rem";
+        >
+    </iframe>
+    </div>
+    </main>
+
+    <script>
+        window.addEventListener("message", event => {
+
+            if($.trim(event.data) == "true")
+            return
+
+            $.ajax({
+                type        : "POST",
+                url         : "../upload",
+                data        : JSON.stringify(event.data),
+                contentType : "application/json; charset=utf-8",
+                processData : false
+            }).done(function (data) {
+                $('#test').html(data);
+            });
+        }, false)
+    </script>
+</body>
+</html>
